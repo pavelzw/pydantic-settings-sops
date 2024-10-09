@@ -29,7 +29,7 @@ class TestSettings(BaseSettings):
     @classmethod
     def settings_customise_sources(
         cls,
-        settings_cls: BaseSettings,
+        settings_cls: BaseSettings,  # type: ignore[override]
         init_settings: PydanticBaseSettingsSource,
         env_settings: PydanticBaseSettingsSource,
         dotenv_settings: PydanticBaseSettingsSource,
