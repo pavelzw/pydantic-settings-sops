@@ -8,6 +8,11 @@ postinstall = "pip install --no-build-isolation --no-deps --disable-pip-version-
 
 [dependencies]
 python = ">=3.9"
+age = ">=1.2.0,<2"
+go-sops = ">=3.9.1,<4"
+pydantic-settings = ">=2.5.2,<3"
+sopsy = ">=1.0.0,<2"
+pytest = ">=8.3.3,<9"
 
 [host-dependencies]
 pip = "*"
