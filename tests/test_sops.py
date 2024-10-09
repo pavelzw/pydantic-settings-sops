@@ -28,7 +28,6 @@ def test_settings_json():
 
 
 class TestSettingsYaml(BaseSettings):
-    # todo: add json tests: https://github.com/nikaro/sopsy/issues/73
     model_config = SettingsConfigDict(
         yaml_file=["tests/resources/secrets.yaml", "tests/resources/secrets2.yaml"]
     )
@@ -49,7 +48,6 @@ class TestSettingsYaml(BaseSettings):
 
 
 class TestSettingsJson(BaseSettings):
-    # todo: add json tests: https://github.com/nikaro/sopsy/issues/73
     model_config = SettingsConfigDict(
         yaml_file=["tests/resources/secrets.json", "tests/resources/secrets2.json"]
     )

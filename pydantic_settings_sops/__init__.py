@@ -31,7 +31,6 @@ class SOPSConfigSettingsSource(InitSettingsSource, ConfigFileSourceMixin):
         json_file: PathType | None = DEFAULT_PATH,
         yaml_file: PathType | None = DEFAULT_PATH,
     ):
-        # currently, json is not working: https://github.com/nikaro/sopsy/issues/73
         self.json_file_path = (
             json_file
             if json_file != DEFAULT_PATH
