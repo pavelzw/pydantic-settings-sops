@@ -6,7 +6,7 @@ author_email: pavelzw@gmail.com
 author_name: Pavel Zwerschke
 github_url: https://github.com/pavelzw/pydantic-settings-sops
 github_user: pavelzw
-minimal_python_version: py39
+minimal_python_version: py310
 project_short_description: SOPS extension for pydantic-settings
 project_slug: pydantic-settings-sops
 use_devcontainer: false

@@ -31,7 +31,6 @@ jobs:
       fail-fast: false
       matrix:
         environment:
-          - py39
           - py310
           - py311
           - py312
@@ -52,3 +51,5 @@ jobs:
         run: pixi run -e ${{ matrix.environment }} postinstall
       - name: Run pytest
         run: pixi run -e ${{ matrix.environment }} test-coverage --color=yes
+        env:
+          SOPS_AGE_KEY_FILE: ./tests/resources/key.txt
