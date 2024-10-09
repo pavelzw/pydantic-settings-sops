@@ -27,7 +27,6 @@ def test_settings_json():
     assert settings2.foobar2 == "foo"
 
 
-
 class TestSettingsYaml(BaseSettings):
     # todo: add json tests: https://github.com/nikaro/sopsy/issues/73
     model_config = SettingsConfigDict(
