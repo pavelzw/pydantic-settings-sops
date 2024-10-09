@@ -30,6 +30,7 @@ test-coverage = "pytest --cov=pydantic_settings_sops --cov-report=xml --cov-repo
 [feature.build.dependencies]
 python-build = "*"
 twine = "*"
+wheel = "*"
 [feature.build.tasks]
 build-wheel = "python -m build --no-isolation ."
 check-wheel = "twine check dist/*"
