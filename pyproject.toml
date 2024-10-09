@@ -58,6 +58,7 @@ indent-style = "space"
 python_version = '3.10'
 no_implicit_optional = true
 check_untyped_defs = true
+plugins="pydantic.mypy"
 
 # If you run into `missing library stubs or py.typed marker` errors
 # and no stubs are available for this library, you can add an override
