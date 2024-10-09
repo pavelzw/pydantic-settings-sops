@@ -9,7 +9,8 @@ SOPS extension for `pydantic-settings`.
 
 This package allows you to read SOPS files into a `pydantic-settings` object.
 
-You can install this package via 
+You can install this package via
+
 ```bash
 pip install pydantic-settings-sops
 # or
@@ -18,7 +19,7 @@ pixi add pydantic-settings-sops
 
 ## Example
 
-To use pydantic-settings-sops, adjust your settings sources by defining a custom `settings_customise_sources`. 
+To use pydantic-settings-sops, adjust your settings sources by defining a custom `settings_customise_sources`.
 For more information on `pydantic-settings`, please visit the [official documentation](https://docs.pydantic.dev/latest/concepts/pydantic_settings).
 
 ```py
