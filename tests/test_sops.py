@@ -1,4 +1,9 @@
-from pydantic_settings import BaseSettings, PydanticBaseSettingsSource, SettingsConfigDict
+from pydantic_settings import (
+    BaseSettings,
+    PydanticBaseSettingsSource,
+    SettingsConfigDict,
+)
+
 from pydantic_settings_sops import SOPSConfigSettingsSource
 
 
@@ -14,7 +19,9 @@ def test_get_settings():
 
 class TestSettings(BaseSettings):
     # todo: add json tests: https://github.com/nikaro/sopsy/issues/73
-    model_config = SettingsConfigDict(yaml_file=["tests/resources/secrets.yaml", "tests/resources/secrets2.yaml"])
+    model_config = SettingsConfigDict(
+        yaml_file=["tests/resources/secrets.yaml", "tests/resources/secrets2.yaml"]
+    )
 
     foobar: str
     foobar2: str

@@ -17,11 +17,16 @@ from pydantic_settings import (
     PydanticBaseSettingsSource,
     SettingsConfigDict,
 )
-from pydantic_settings.sources import DEFAULT_PATH,PathType,ConfigFileSourceMixin,InitSettingsSource
+from pydantic_settings.sources import (
+    DEFAULT_PATH,
+    ConfigFileSourceMixin,
+    InitSettingsSource,
+    PathType,
+)
 from sopsy import Sops
 
 
-class SOPSConfigSettingsSource(InitSettingsSource,ConfigFileSourceMixin):
+class SOPSConfigSettingsSource(InitSettingsSource, ConfigFileSourceMixin):
     """
     A simple settings source class that loads variables via SOPS.
     """
@@ -30,11 +35,19 @@ class SOPSConfigSettingsSource(InitSettingsSource,ConfigFileSourceMixin):
         self,
         settings_cls: type[BaseSettings],
         json_file: PathType | None = DEFAULT_PATH,
-        yaml_file: PathType | None = DEFAULT_PATH
+        yaml_file: PathType | None = DEFAULT_PATH,
     ):
         # currently, json is not working: https://github.com/nikaro/sopsy/issues/73
-        self.json_file_path = json_file if json_file != DEFAULT_PATH else settings_cls.model_config.get('json_file')
-        self.yaml_file_path = yaml_file if yaml_file != DEFAULT_PATH else settings_cls.model_config.get('yaml_file')
+        self.json_file_path = (
+            json_file
+            if json_file != DEFAULT_PATH
+            else settings_cls.model_config.get("json_file")
+        )
+        self.yaml_file_path = (
+            yaml_file
+            if yaml_file != DEFAULT_PATH
+            else settings_cls.model_config.get("yaml_file")
+        )
         self.data = self._read_files(self.json_file_path)
         self.data |= self._read_files(self.yaml_file_path)
         super().__init__(settings_cls, self.data)
