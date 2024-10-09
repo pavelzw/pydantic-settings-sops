@@ -24,8 +24,8 @@ pytest = ">=6"
 pytest-cov = "*"
 mypy = "*"
 [feature.test.tasks]
-test = "pytest"
-test-coverage = "pytest --cov=pydantic_settings_sops --cov-report=xml --cov-report=term-missing"
+test = { cmd = "pytest", env = { SOPS_AGE_KEY_FILE = "tests/resources/key.txt" } }
+test-coverage = { cmd = "pytest --cov=pydantic_settings_sops --cov-report=xml --cov-report=term-missing", env = { SOPS_AGE_KEY_FILE = "tests/resources/key.txt" } }
 
 [feature.build.dependencies]
 python-build = "*"
