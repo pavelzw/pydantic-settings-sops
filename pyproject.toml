@@ -17,7 +17,7 @@ classifiers = [
 ]
 requires-python = ">=3.10"
 readme = "README.md"
-dependencies = ["pydantic-settings >=2.5.2,<3", "sopsy >=1.0.0,<2"]
+dependencies = ["pydantic-settings >=2.5.2,<3", "sopsy >=1.0.1,<2"]
 
 [project.urls]
 repository = "https://github.com/pavelzw/pydantic-settings-sops"

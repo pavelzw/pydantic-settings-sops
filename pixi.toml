@@ -11,7 +11,7 @@ python = ">=3.10"
 age = ">=1.2.0,<2"
 go-sops = ">=3.9.1,<4"
 pydantic-settings = ">=2.5.2,<3"
-sopsy = ">=1.0.0,<2"
+sopsy = ">=1.0.1,<2"
 pytest = ">=8.3.3,<9"
 
 [host-dependencies]
@@ -24,8 +24,8 @@ pytest = ">=6"
 pytest-cov = "*"
 mypy = "*"
 [feature.test.tasks]
-test = "pytest"
-test-coverage = "pytest --cov=pydantic_settings_sops --cov-report=xml --cov-report=term-missing"
+test = { cmd = "pytest", env = { SOPS_AGE_KEY_FILE = "tests/resources/key.txt" } }
+test-coverage = { cmd = "pytest --cov=pydantic_settings_sops --cov-report=xml --cov-report=term-missing", env = { SOPS_AGE_KEY_FILE = "tests/resources/key.txt" } }
 
 [feature.build.dependencies]
 python-build = "*"
