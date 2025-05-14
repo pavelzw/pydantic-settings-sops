@@ -8,26 +8,26 @@ from pydantic_settings_sops import SOPSConfigSettingsSource
 
 
 def test_settings_yaml():
-    settings = TestSettingsYaml()
+    settings = ExampleSettingsYaml()
     assert settings.foobar == "foo"
     assert settings.foobar2 == "foo"
 
-    settings2 = TestSettingsYaml(foobar="bar")
+    settings2 = ExampleSettingsYaml(foobar="bar")
     assert settings2.foobar == "bar"
     assert settings2.foobar2 == "foo"
 
 
 def test_settings_json():
-    settings = TestSettingsJson()
+    settings = ExampleSettingsJson()
     assert settings.foobar == "foo"
     assert settings.foobar2 == "foo"
 
-    settings2 = TestSettingsJson(foobar="bar")
+    settings2 = ExampleSettingsJson(foobar="bar")
     assert settings2.foobar == "bar"
     assert settings2.foobar2 == "foo"
 
 
-class TestSettingsYaml(BaseSettings):
+class ExampleSettingsYaml(BaseSettings):
     model_config = SettingsConfigDict(
         yaml_file=["tests/resources/secrets.yaml", "tests/resources/secrets2.yaml"]
     )
@@ -47,7 +47,7 @@ class TestSettingsYaml(BaseSettings):
         return (init_settings, SOPSConfigSettingsSource(settings_cls))
 
 
-class TestSettingsJson(BaseSettings):
+class ExampleSettingsJson(BaseSettings):
     model_config = SettingsConfigDict(
         yaml_file=["tests/resources/secrets.json", "tests/resources/secrets2.json"]
     )

@@ -12,11 +12,10 @@ from typing import Any
 
 from pydantic_settings import BaseSettings
 from pydantic_settings.sources import (
-    DEFAULT_PATH,
     ConfigFileSourceMixin,
     InitSettingsSource,
-    PathType,
 )
+from pydantic_settings.sources.types import DEFAULT_PATH, PathType
 from sopsy import Sops
 
 
