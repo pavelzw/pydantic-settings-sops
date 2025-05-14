@@ -16,7 +16,7 @@ from pydantic_settings.sources import (
     InitSettingsSource,
     PathType,
 )
-from pydantic_settings.sources.types import DEFAULT_PATH, PathType
+from pydantic_settings.sources.types import DEFAULT_PATH
 from sopsy import Sops
 
 
