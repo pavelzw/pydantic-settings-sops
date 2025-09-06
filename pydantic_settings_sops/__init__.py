@@ -1,6 +1,10 @@
 import importlib.metadata
 import warnings
 
+from .json import SopsJsonSettingsSource
+from .mixin import SopsConfigFileSourceMixin
+from .yaml import SopsYamlSettingsSource
+
 try:
     __version__ = importlib.metadata.version(__name__)
 except importlib.metadata.PackageNotFoundError as e:  # pragma: no cover
@@ -49,3 +53,11 @@ class SOPSConfigSettingsSource(InitSettingsSource, ConfigFileSourceMixin):
         decrypted = sops.decrypt(to_dict=True)
         assert isinstance(decrypted, dict)
         return decrypted
+
+
+__all__ = [
+    "SOPSConfigSettingsSource",
+    "SopsJsonSettingsSource",
+    "SopsYamlSettingsSource",
+    "SopsConfigFileSourceMixin",
+]
