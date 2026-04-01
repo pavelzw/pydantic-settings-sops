@@ -22,6 +22,8 @@ pixi add pydantic-settings-sops
 To use pydantic-settings-sops, adjust your settings sources by defining a custom `settings_customise_sources`.
 For more information on `pydantic-settings`, please visit the [official documentation](https://docs.pydantic.dev/latest/concepts/pydantic_settings).
 
+If your settings are always encrypted with SOPS, you can use the following example:
+
 ```py
 from pydantic_settings import (
     BaseSettings,
@@ -31,22 +33,44 @@ from pydantic_settings import (
 from pydantic_settings_sops import SOPSConfigSettingsSource
 
 class SettingsExample(BaseSettings):
-    model_config = SettingsConfigDict(
-        yaml_file="secrets.yaml"
-    )
+    model_config = SettingsConfigDict(yaml_file="secrets.yaml")
 
     foobar: str
 
     @classmethod
     def settings_customise_sources(
         cls,
-        settings_cls: BaseSettings,
+        settings_cls: type[BaseSettings],
         init_settings: PydanticBaseSettingsSource,
-        env_settings: PydanticBaseSettingsSource,
-        dotenv_settings: PydanticBaseSettingsSource,
-        file_secret_settings: PydanticBaseSettingsSource,
+        **other_settings: PydanticBaseSettingsSource,
     ) -> tuple[PydanticBaseSettingsSource, ...]:
-        return (init_settings, SOPSConfigSettingsSource(settings_cls))
+        return init_settings, SOPSConfigSettingsSource(settings_cls), *other_settings.values()
+```
+
+If you need to handle JSON or YAML files that might be encrypted or not (i.e., encrypted in development but decrypted in
+production), you must use the specific source classes, `SopsYamlSettingsSource` or `SopsJsonSettingsSource`:
+
+```py
+from pydantic_settings import (
+    BaseSettings,
+    PydanticBaseSettingsSource,
+    SettingsConfigDict,
+)
+from pydantic_settings_sops import SopsYamlSettingsSource
+
+class SettingsExample(BaseSettings):
+    model_config = SettingsConfigDict(yaml_file="secrets.yaml")
+
+    foobar: str
+
+    @classmethod
+    def settings_customise_sources(
+        cls,
+        settings_cls: type[BaseSettings],
+        init_settings: PydanticBaseSettingsSource,
+        **other_settings: PydanticBaseSettingsSource,
+    ) -> tuple[PydanticBaseSettingsSource, ...]:
+        return init_settings, SopsYamlSettingsSource(settings_cls), *other_settings.values()
 ```
 
 ## Installation
