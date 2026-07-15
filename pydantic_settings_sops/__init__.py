@@ -1,6 +1,10 @@
 import importlib.metadata
 import warnings
 
+from .json import SopsJsonSettingsSource
+from .mixin import SopsConfigFileSourceMixin
+from .yaml import SopsYamlSettingsSource
+
 try:
     __version__ = importlib.metadata.version(__name__)
 except importlib.metadata.PackageNotFoundError as e:  # pragma: no cover
@@ -26,7 +30,7 @@ class SOPSConfigSettingsSource(InitSettingsSource, ConfigFileSourceMixin):
 
     def __init__(
         self,
-        settings_cls: BaseSettings,
+        settings_cls: type[BaseSettings],
         json_file: PathType | None = DEFAULT_PATH,
         yaml_file: PathType | None = DEFAULT_PATH,
     ):
@@ -42,8 +46,18 @@ class SOPSConfigSettingsSource(InitSettingsSource, ConfigFileSourceMixin):
         )
         self.data = self._read_files(self.json_file_path)
         self.data |= self._read_files(self.yaml_file_path)
-        super().__init__(settings_cls, self.data)  # type: ignore[arg-type]
+        super().__init__(settings_cls, self.data)
 
     def _read_file(self, file_path: Path) -> dict[str, Any]:
         sops = Sops(file_path)
-        return sops.decrypt(to_dict=True)  # type: ignore[return-value]
+        decrypted = sops.decrypt(to_dict=True)
+        assert isinstance(decrypted, dict)
+        return decrypted
+
+
+__all__ = [
+    "SOPSConfigSettingsSource",
+    "SopsJsonSettingsSource",
+    "SopsYamlSettingsSource",
+    "SopsConfigFileSourceMixin",
+]

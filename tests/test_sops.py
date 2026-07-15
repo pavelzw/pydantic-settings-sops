@@ -38,7 +38,7 @@ class ExampleSettingsYaml(BaseSettings):
     @classmethod
     def settings_customise_sources(
         cls,
-        settings_cls: BaseSettings,  # type: ignore[override]
+        settings_cls: type[BaseSettings],
         init_settings: PydanticBaseSettingsSource,
         env_settings: PydanticBaseSettingsSource,
         dotenv_settings: PydanticBaseSettingsSource,
