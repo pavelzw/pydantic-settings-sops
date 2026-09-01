@@ -15,7 +15,7 @@ from pydantic_settings.sources import (
     ConfigFileSourceMixin,
     InitSettingsSource,
 )
-from pydantic_settings.sources.types import DEFAULT_PATH, PathType
+from pydantic_settings.sources.types import DEFAULT_PATH, PathType, Traversable
 from sopsy import Sops
 
 
@@ -44,6 +44,9 @@ class SOPSConfigSettingsSource(InitSettingsSource, ConfigFileSourceMixin):
         self.data |= self._read_files(self.yaml_file_path)
         super().__init__(settings_cls, self.data)  # type: ignore[arg-type]
 
-    def _read_file(self, file_path: Path) -> dict[str, Any]:
+    def _read_file(self, file_path: Path | Traversable) -> dict[str, Any]:
+        if not isinstance(file_path, Path):
+            msg = f"SOPS can only decrypt on-disk files, got {file_path!r}"
+            raise TypeError(msg)
         sops = Sops(file_path)
         return sops.decrypt(to_dict=True)  # type: ignore[return-value]
