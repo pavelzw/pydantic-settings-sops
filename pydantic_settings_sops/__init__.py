@@ -17,11 +17,8 @@ from pydantic_settings.sources import (
     ConfigFileSourceMixin,
     InitSettingsSource,
 )
-from pydantic_settings.sources.types import DEFAULT_PATH, PathType
+from pydantic_settings.sources.types import DEFAULT_PATH, PathType, Traversable
 from sopsy import Sops
-
-if TYPE_CHECKING:
-    from pydantic_settings.sources.types import Traversable
 
 
 class SOPSConfigSettingsSource(InitSettingsSource, ConfigFileSourceMixin):
