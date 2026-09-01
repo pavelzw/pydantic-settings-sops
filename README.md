@@ -59,6 +59,5 @@ git clone https://github.com/pavelzw/pydantic-settings-sops
 cd pydantic-settings-sops
 
 pixi run pre-commit-install
-pixi run postinstall
 pixi run test
 ```
