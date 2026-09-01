@@ -35,7 +35,6 @@ jobs:
       fail-fast: false
       matrix:
         environment:
-          - py311
           - py312
           - py313
           - py314
