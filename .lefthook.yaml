@@ -7,6 +7,7 @@ pre-commit:
   fail_on_changes: always
   exclude:
     - assets/**/*
+    - tests/resources/*
   jobs:
     - name: pixi-install
       run: pixi install
