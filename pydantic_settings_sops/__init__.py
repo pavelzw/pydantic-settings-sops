@@ -10,7 +10,7 @@ except importlib.metadata.PackageNotFoundError as e:  # pragma: no cover
     __version__ = "unknown"
 
 from pathlib import Path
-from typing import TYPE_CHECKING, Any
+from typing import Any
 
 from pydantic_settings import BaseSettings
 from pydantic_settings.sources import (

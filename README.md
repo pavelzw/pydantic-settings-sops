@@ -30,10 +30,9 @@ from pydantic_settings import (
 )
 from pydantic_settings_sops import SOPSConfigSettingsSource
 
+
 class SettingsExample(BaseSettings):
-    model_config = SettingsConfigDict(
-        yaml_file="secrets.yaml"
-    )
+    model_config = SettingsConfigDict(yaml_file="secrets.yaml")
 
     foobar: str
 
