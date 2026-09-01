@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import importlib.metadata
 import warnings
 
@@ -8,7 +10,7 @@ except importlib.metadata.PackageNotFoundError as e:  # pragma: no cover
     __version__ = "unknown"
 
 from pathlib import Path
-from typing import Any
+from typing import TYPE_CHECKING, Any
 
 from pydantic_settings import BaseSettings
 from pydantic_settings.sources import (
@@ -17,6 +19,9 @@ from pydantic_settings.sources import (
 )
 from pydantic_settings.sources.types import DEFAULT_PATH, PathType
 from sopsy import Sops
+
+if TYPE_CHECKING:
+    from pydantic_settings.sources.types import Traversable
 
 
 class SOPSConfigSettingsSource(InitSettingsSource, ConfigFileSourceMixin):
@@ -44,6 +49,9 @@ class SOPSConfigSettingsSource(InitSettingsSource, ConfigFileSourceMixin):
         self.data |= self._read_files(self.yaml_file_path)
         super().__init__(settings_cls, self.data)  # type: ignore[arg-type]
 
-    def _read_file(self, file_path: Path) -> dict[str, Any]:
+    def _read_file(self, file_path: Path | Traversable) -> dict[str, Any]:
+        if not isinstance(file_path, Path):
+            msg = f"SOPS can only decrypt on-disk files, got {file_path!r}"
+            raise TypeError(msg)
         sops = Sops(file_path)
         return sops.decrypt(to_dict=True)  # type: ignore[return-value]
